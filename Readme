@@ -1,0 +1,18 @@
+Tema 4 Protocoale de comunicatii
+
+	Implementare comenzi:
+
+	-r : descarcare recursiva a paginilor html din tagurile <a href="" ></a>
+	Precizari: comanda nu functioneaza bine si nu descarca toate paginile necesare, desi implementarea este una recursiva. Am tratat si cazul in care tagul se afla pe doua randuri(pe primul rand <a, iar pe urmatorul rand href="" ...) si de asemenea tratez si cazul in care in linkul spre fisier apare ".." (ex. daca am "../../dir3/index.html"), ma intorc cu doua directoare si creez directorul "dir3". Am tratat si cazul in care directorul curent in care ma aflu are acelasi nume cu primul director din calea fisierului ce trebuie descarcat(am obtinut calea curenta prin getcwd()).
+	-e : descarcarea tuturor fisierelor dintr-o pagina html cu extensia precizata.
+	Precizari: comanda nu functioneaza ok. Citesc de pe socket cu ajutorul functiei read, si in fiecare bloc de date primit ma uit dupa separatorul "\r\n\r\n" si incep sa scriu datele in fisieer dupa acest separator. Insa la un moment dat se opreste citirea de pe socket si dimensiunea fisierului descarcat difera fata de cea a celui de pe server.
+	-o <fisier_log> : scrierea mesajelor de eroare se face in fisierul precizat in cazul in care comanda este data in linie de comanda.
+
+	Principiul de functionare al programului:
+
+	In variabila comenzi, retin comenzile date in linia de comanda, incerc sa ma conectez la server si apelez functia createDirectories care imi creaza structura de directoare precizata in linie de comanda si imi descarca fisierul cu extensia html. 
+	Odata descarcat, apelez functia executeCommands, care va parcurge fisierul prin citirea cu fgets. Intr-o bucla while, incerc sa identific linkurile intre taguri <a></a>.
+	Verific pe rand daca este activata comanda -r si daca fisierul are extensiia .html. Daca raspunsul este afirmativ apelez din nou createDirectories pentru noul fisier gasit. 
+	In cazul comenzii -e, verific daca fisierul are una din extensiile predefinite in program. In caz afirmativ apelez createDirectories, care la randul ei nu va mai apela din nou executeCommands asa cum se intampla in cazul comenzii -r.
+ 	
+Dobre Adelin 323CC 
